@@ -23,7 +23,7 @@ def run(argv=None, save_main_session=True):
     
         input = p | 'Read from Mongo' >> ReadFromMongoDB(uri='mongodb://localhost:27017',
             db='demo',
-            coll='demo')
+            coll='users')
 
         def convert_doc(doc):
             doc['fullname'] = "{} {}".format(
@@ -36,7 +36,7 @@ def run(argv=None, save_main_session=True):
         converted = input | 'Convert' >> beam.Map(convert_doc)
         written = converted |  'Write to Mongo' >> WriteToMongoDB(uri='mongodb://localhost:27017',
             db='demo',
-            coll='demo')
+            coll='users')
 
 
 if __name__ == '__main__':
